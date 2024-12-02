@@ -1,5 +1,5 @@
 
-def chiefLocationSearch(list1: list, list2: list):
+def chiefLocationDistance(list1: list, list2: list):
     #print(len(list1))
     #sorted parallel arrays 
     # timsort O(n Logn) ... O(n1 logn1 + n2 logn2) ... O(n logn)
@@ -15,6 +15,38 @@ def chiefLocationSearch(list1: list, list2: list):
     solution = sum(dif_values)
     return solution
 
+def chiefSimilirityScore(list1: list, list2: list):
+    #optimize solution of similarity score
+    count_dict = {}
+    for element in list2:
+        if element in count_dict:
+            count_dict[element] += 1
+        else:
+            count_dict[element] = 1
+    
+    similarity_score = 0
+    for value in list1:
+        if value in count_dict:
+            similarity_score += value * count_dict[value]
+    
+    return similarity_score
+
+def naiveSolution(list1: list, list2: list):
+    list1.sort()
+    list2.sort()
+    similarity_score = []
+   
+    for i in range(len(list1)):
+        ocurrence = 0 
+        for j in range(len(list2)):
+            if list1[i] == list2[j]:
+                ocurrence = ocurrence +1 
+
+        similarity_score.append(ocurrence*list1[i])
+    
+    solution = sum(similarity_score)
+
+    return solution
 
 
 lista = [31594, 46608, 78052, 52680, 92973, 55296, 37186, 40769, 35040, 59499, 85832, 42482, 17095, 61272, 32160, 10808, 16969, 36787, 69808, 70646, 
@@ -120,4 +152,6 @@ listb = [93577, 24099, 70524, 49933, 56887, 47645, 75116, 84992, 60175, 14847, 5
 23350, 59656, 26802, 28888, 88957, 28783, 70208, 21717, 98815, 36965, 86047, 57533, 88962, 53641, 35233, 20997, 63698, 56887, 77208, 53718]
 
 
-print(chiefLocationSearch(lista, listb))  
+#print(chiefLocationDistance(lista, listb))
+#print(chiefSimilirityScore(lista, listb))
+#print(naiveSolution(list1=lista, list2=listb))  
